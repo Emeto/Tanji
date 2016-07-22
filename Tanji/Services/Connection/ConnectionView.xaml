@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="Tanji.Services.Connection.ConnectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:c="clr-namespace:Tanji.Helpers.Converters"
+             xmlns:local="clr-namespace:Tanji.Services.Connection"
+             xmlns:h="clr-namespace:Tanji.Helpers"
+             xmlns:m="clr-namespace:Tanji.Windows.Main"
+             xmlns:ctrls="clr-namespace:Tanji.Controls"
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <local:ConnectionViewModel/>
+    </UserControl.DataContext>
+    <Grid Width="478" Height="318">
+        <ctrls:LabelBox IsReadOnly="True"
+                        Margin="0,271,92,27"
+                        Title="Custom Client"
+                        TextAlignment="Center"
+                        x:Name="CustomClientTxt"
+                        IsReadOnlyCaretVisible="True"
+                        Text="{Binding CustomClientPath}"/>
+        <Button Content="Browse"
+                Margin="391,271,0,27"
+                Command="{Binding BrowseCommand}"/>
+        <Separator Margin="0,291,0,20"
+                   Background="{StaticResource TJPrimaryBrush}"/>
+        <Label Content="{Binding State}"
+               Margin="0,298,184,0"
+               IsEnabled="{Binding IsConnecting}"/>
+        <Button Content="Cancel"
+                Margin="299,298,92,0"
+                Command="{Binding CancelCommand}"
+                IsEnabled="{Binding IsConnecting}"/>
+        <Button Content="Connect"
+                Margin="391,298,0,0"
+                Command="{Binding ConnectCommand}"
+                IsEnabled="{Binding IsConnecting, Converter={c:InverseBooleanConverter}}"/>
+    </Grid>
+</UserControl>

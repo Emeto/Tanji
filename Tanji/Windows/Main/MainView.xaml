@@ -1,0 +1,90 @@
+﻿<Window x:Class="Tanji.Windows.Main.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tanji.Windows.Main"
+        xmlns:connection="clr-namespace:Tanji.Services.Connection"
+        xmlns:injection="clr-namespace:Tanji.Services.Injection"
+        xmlns:toolbox="clr-namespace:Tanji.Services.Toolbox"
+        xmlns:extensions="clr-namespace:Tanji.Services.Extensions"
+        xmlns:options="clr-namespace:Tanji.Services.Options"
+        mc:Ignorable="d"
+        Title="{Binding Title}"
+        ResizeMode="CanMinimize"
+        SizeToContent="WidthAndHeight"
+        Icon="/Resources/Tanji_256.ico"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <DockPanel Width="484" Height="373">
+        <TabControl DockPanel.Dock="Top"
+                    Style="{StaticResource TJTabControl}">
+            <TabItem Header="Connection">
+                <connection:ConnectionView/>
+            </TabItem>
+            <TabItem Header="Injection">
+                <injection:InjectionView/>
+            </TabItem>
+            <TabItem Header="Toolbox">
+                <toolbox:ToolboxView/>
+            </TabItem>
+            <TabItem Header="Extensions">
+                <extensions:ExtensionsView/>
+            </TabItem>
+            <TabItem Header="Options">
+                <options:OptionsView/>
+            </TabItem>
+        </TabControl>
+        <StatusBar Background="White"
+                   DockPanel.Dock="Bottom"
+                   BorderThickness="0,1,0,0"
+                   BorderBrush="{StaticResource TJPrimaryBrush}">
+            <TextBlock Text="{Binding LocalVersion, StringFormat={}v{0}}"/>
+            <Separator/>
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}Schedules: {0}/{1}"
+                                  FallbackValue="Schedules: 0/0">
+                        <Binding Source="{x:Static Application.Current}"
+                                 Path="ActiveSchedulesCount"/>
+                        <Binding Source="{x:Static Application.Current}"
+                                 Path="SchedulesCount"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <Separator/>
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}Filters: {0}/{1}"
+                                  FallbackValue="Filters: 0/0">
+                        <Binding Source="{x:Static Application.Current}"
+                                 Path="ActiveFiltersCount"/>
+                        <Binding Source="{x:Static Application.Current}"
+                                 Path="FiltersCount"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <Separator/>
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}Extensions: {0}/{1}"
+                                  FallbackValue="Extensions: 0/0">
+                        <Binding Source="{x:Static Application.Current}"
+                                 Path="ActiveExtensionsCount"/>
+                        <Binding Source="{x:Static Application.Current}"
+                                 Path="ExtensionsCount"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <Separator/>
+            <StatusBarItem HorizontalAlignment="Stretch"
+                           HorizontalContentAlignment="Center">
+                <Hyperlink>
+                    <TextBlock Text="GitHub | ArachisH/Tanji"/>
+                </Hyperlink>
+            </StatusBarItem>
+        </StatusBar>
+    </DockPanel>
+</Window>

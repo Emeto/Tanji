@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Tanji.Services.Injection.InjectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Tanji.Services.Injection"
+             xmlns:constructer="clr-namespace:Tanji.Services.Injection.Constructer"
+             xmlns:scheduler="clr-namespace:Tanji.Services.Injection.Scheduler"
+             xmlns:inspector="clr-namespace:Tanji.Services.Injection.Inspector"
+             xmlns:filter="clr-namespace:Tanji.Services.Injection.Filter"
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <local:InjectionViewModel/>
+    </UserControl.DataContext>
+    <Grid Width="478" Height="318">
+        <TabControl TabStripPlacement="Right"
+                    Padding="3,3,3,3"
+                    Margin="0,0,0,27"
+                    Style="{StaticResource TJTabControl}">
+            <TabItem Header="Constructer">
+                <constructer:ConstructerView/>
+            </TabItem>
+            <TabItem Header="Scheduler">
+                <scheduler:SchedulerView/>
+            </TabItem>
+            <TabItem Header="Inspector">
+                <inspector:InspectorView/>
+            </TabItem>
+            <TabItem Header="Filter">
+                <filter:FilterView/>
+            </TabItem>
+        </TabControl>
+        <Separator Height="7"
+                   Margin="0,291,0,20"
+                   Background="{StaticResource TJPrimaryBrush}"/>
+        <ComboBox Height="20"
+                  IsEditable="True"
+                  Margin="0,298,220,0"/>
+        <Button Content="Send To Client"
+                Height="20"
+                Margin="263,298,110,0"/>
+        <Button Content="Send To Server"
+                Height="20"
+                Margin="373,298,0,0"/>
+    </Grid>
+</UserControl>
