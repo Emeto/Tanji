@@ -13,6 +13,11 @@
         <local:ConnectionViewModel/>
     </UserControl.DataContext>
     <Grid Width="478" Height="318">
+        <Button Content="Destroy Signed Certificates"
+                Margin="0,246,287,52"/>
+        <Button Content="Export Root Certificate"
+                Margin="195,246,92,52"/>
+        <Button Content="Endpoints" Margin="391,246,0,52"/>
         <ctrls:LabelBox IsReadOnly="True"
                         Margin="0,271,92,27"
                         Title="Custom Client"
