@@ -10,36 +10,48 @@
              xmlns:ctrls="clr-namespace:Tanji.Controls"
              mc:Ignorable="d">
     <UserControl.DataContext>
-        <local:ConnectionViewModel/>
+        <local:ConnectionViewModel x:Name="data"/>
     </UserControl.DataContext>
     <Grid Width="478" Height="318">
-        <Button Content="Destroy Signed Certificates"
-                Margin="0,246,287,52"/>
-        <Button Content="Export Root Certificate"
-                Margin="195,246,92,52"/>
-        <Button Content="Endpoints" Margin="391,246,0,52"/>
+        <ctrls:LabelBox Title="Hotel Server"
+                        Margin="0,0,176,298"
+                        TextAlignment="Center"
+                        IsReadOnlyCaretVisible="True"
+                        Text="{Binding HotelServer, Converter={c:HotelEndPointConverter}}">
+            <TextBoxBase.IsReadOnly>
+                <MultiBinding Converter="{c:BooleanOrConverter}">
+                    <Binding ElementName="data" Path="IsConnecting"/>
+                    <Binding ElementName="data" Path="IsAutomaticServerExtraction"/>
+                </MultiBinding>
+            </TextBoxBase.IsReadOnly>
+        </ctrls:LabelBox>
+        <CheckBox Padding="4,-1,0,0"
+                  Margin="307,0,0,298"
+                  VerticalContentAlignment="Center"
+                  Content="Automatic Server Extraction"
+                  IsChecked="{Binding IsAutomaticServerExtraction}"
+                  IsEnabled="{Binding IsConnecting, Converter={c:InverseBooleanConverter}}"/>
+        <Separator Margin="0,20,0,291"
+                   Background="{StaticResource TJPrimaryBrush}"/>
         <ctrls:LabelBox IsReadOnly="True"
-                        Margin="0,271,92,27"
+                        Margin="0,271,95,27"
                         Title="Custom Client"
                         TextAlignment="Center"
-                        x:Name="CustomClientTxt"
                         IsReadOnlyCaretVisible="True"
                         Text="{Binding CustomClientPath}"/>
         <Button Content="Browse"
-                Margin="391,271,0,27"
-                Command="{Binding BrowseCommand}"/>
+                Margin="388,271,0,27"
+                Command="{Binding BrowseAsyncCommand}"/>
         <Separator Margin="0,291,0,20"
                    Background="{StaticResource TJPrimaryBrush}"/>
-        <Label Content="{Binding State}"
-               Margin="0,298,184,0"
+        <Label Content="{Binding Status}"
+               Margin="0,298,190,0"
                IsEnabled="{Binding IsConnecting}"/>
         <Button Content="Cancel"
-                Margin="299,298,92,0"
-                Command="{Binding CancelCommand}"
-                IsEnabled="{Binding IsConnecting}"/>
+                Margin="293,298,95,0"
+                Command="{Binding CancelCommand}"/>
         <Button Content="Connect"
-                Margin="391,298,0,0"
-                Command="{Binding ConnectCommand}"
-                IsEnabled="{Binding IsConnecting, Converter={c:InverseBooleanConverter}}"/>
+                Margin="388,298,0,0"
+                Command="{Binding ConnectCommand}"/>
     </Grid>
 </UserControl>

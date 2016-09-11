@@ -1,105 +1,77 @@
-﻿using System.Windows;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System;
+using System.Windows;
+using System.Collections.Generic;
 
+using Tanji.Services;
+
+using Tangine.Habbo;
+
+using Sulakore.Protocol;
 using Sulakore.Habbo.Web;
 using Sulakore.Communication;
 
 namespace Tanji
 {
-    public partial class App : Application, INotifyPropertyChanged
+    public partial class App : Application
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            PropertyChanged?.Invoke(this, e);
-        }
-        protected void RaiseOnPropertyChanged([CallerMemberName]string propertyName = "")
-        {
-            OnPropertyChanged(
-                new PropertyChangedEventArgs(propertyName));
-        }
+        private static readonly object _dataLock;
 
-        private int _schedulesCount = 0;
-        public int SchedulesCount
-        {
-            get { return _schedulesCount; }
-            set
-            {
-                _schedulesCount = value;
-                RaiseOnPropertyChanged();
-            }
-        }
+        public static List<IHaltable> Haltables { get; }
+        public static SortedList<int, IReceiver> Receivers { get; }
 
-        private int _activeSchedulesCount = 0;
-        public int ActiveSchedulesCount
-        {
-            get { return _activeSchedulesCount; }
-            set
-            {
-                _activeSchedulesCount = value;
-                RaiseOnPropertyChanged();
-            }
-        }
-
-        private int _filtersCount = 0;
-        public int FiltersCount
-        {
-            get { return _filtersCount; }
-            set
-            {
-                _filtersCount = value;
-                RaiseOnPropertyChanged();
-            }
-        }
-
-        private int _activeFiltersCount = 0;
-        public int ActiveFiltersCount
-        {
-            get { return _activeFiltersCount; }
-            set
-            {
-                _activeFiltersCount = value;
-                RaiseOnPropertyChanged();
-            }
-        }
-
-        private int _activeExtensionsCount;
-        public int ActiveExtensionsCount
-        {
-            get { return _activeExtensionsCount; }
-            set
-            {
-                _activeExtensionsCount = value;
-                RaiseOnPropertyChanged();
-            }
-        }
-
-        private int _extensionsCount;
-        public int ExtensionsCount
-        {
-            get { return _extensionsCount; }
-            set
-            {
-                _extensionsCount = value;
-                RaiseOnPropertyChanged();
-            }
-        }
+        public static HGame Game { get; set; }
 
         public static HGameData GameData { get; }
-        public static HConnection Connection { get; }
-        public static App Instance { get; private set; }
+        public static HInterceptor Interceptor { get; }
 
         static App()
         {
+            _dataLock = new object();
+
+            Haltables = new List<IHaltable>();
+            Receivers = new SortedList<int, IReceiver>();
+
             GameData = new HGameData();
-            Connection = new HConnection();
+            Interceptor = new HInterceptor();
+
+            Interceptor.Connected += Connected;
+            Interceptor.Disconnected += Disconnected;
+            Interceptor.DataOutgoing += HandleData;
+            Interceptor.DataIncoming += HandleData;
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        private static void Connected(object sender, EventArgs e)
         {
-            Instance = this;
-            base.OnStartup(e);
+            Current.Dispatcher.Invoke(Restore);
+        }
+        private static void Disconnected(object sender, EventArgs e)
+        {
+            Current.Dispatcher.Invoke(Halt);
+        }
+
+        private static void Halt()
+        {
+            Haltables.ForEach(h => h.Halt());
+        }
+        private static void Restore()
+        {
+            Haltables.ForEach(h => h.Restore());
+        }
+
+        private static void HandleData(object sender, DataInterceptedEventArgs e)
+        {
+            if (Receivers.Count == 0) return;
+            bool isOutgoing = (e.Message.Destination == HDestination.Server);
+
+            foreach (IReceiver receiver in Receivers.Values)
+            {
+                if (!receiver.IsReceiving) continue;
+                if (isOutgoing)
+                {
+                    receiver.HandleOutgoing(e);
+                }
+                else receiver.HandleIncoming(e);
+            }
         }
     }
 }

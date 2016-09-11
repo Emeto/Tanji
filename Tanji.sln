@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashInspect", "..\FlashIns
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eavesdrop", "..\Eavesdrop\Eavesdrop\Eavesdrop.csproj", "{CED1943A-E9B4-46B6-A887-54BCB0DD406B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tangine", "Tangine\Tangine.csproj", "{F3199201-061D-4DF2-A00E-61BA3B754E3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{CED1943A-E9B4-46B6-A887-54BCB0DD406B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CED1943A-E9B4-46B6-A887-54BCB0DD406B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CED1943A-E9B4-46B6-A887-54BCB0DD406B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3199201-061D-4DF2-A00E-61BA3B754E3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3199201-061D-4DF2-A00E-61BA3B754E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3199201-061D-4DF2-A00E-61BA3B754E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3199201-061D-4DF2-A00E-61BA3B754E3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

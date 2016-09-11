@@ -12,15 +12,15 @@
         mc:Ignorable="d"
         Title="{Binding Title}"
         ResizeMode="CanMinimize"
+        UseLayoutRounding="True"
         SizeToContent="WidthAndHeight"
         Icon="/Resources/Tanji_256.ico"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
-    <DockPanel Width="484" Height="373">
-        <TabControl DockPanel.Dock="Top"
-                    Style="{StaticResource TJTabControl}">
+    <DockPanel Width="485" Height="357">
+        <TabControl DockPanel.Dock="Top" Padding="3,6,3,3">
             <TabItem Header="Connection">
                 <connection:ConnectionView/>
             </TabItem>
@@ -37,54 +37,5 @@
                 <options:OptionsView/>
             </TabItem>
         </TabControl>
-        <StatusBar Background="White"
-                   DockPanel.Dock="Bottom"
-                   BorderThickness="0,1,0,0"
-                   BorderBrush="{StaticResource TJPrimaryBrush}">
-            <TextBlock Text="{Binding LocalVersion, StringFormat={}v{0}}"/>
-            <Separator/>
-            <TextBlock>
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}Schedules: {0}/{1}"
-                                  FallbackValue="Schedules: 0/0">
-                        <Binding Source="{x:Static Application.Current}"
-                                 Path="ActiveSchedulesCount"/>
-                        <Binding Source="{x:Static Application.Current}"
-                                 Path="SchedulesCount"/>
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <Separator/>
-            <TextBlock>
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}Filters: {0}/{1}"
-                                  FallbackValue="Filters: 0/0">
-                        <Binding Source="{x:Static Application.Current}"
-                                 Path="ActiveFiltersCount"/>
-                        <Binding Source="{x:Static Application.Current}"
-                                 Path="FiltersCount"/>
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <Separator/>
-            <TextBlock>
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}Extensions: {0}/{1}"
-                                  FallbackValue="Extensions: 0/0">
-                        <Binding Source="{x:Static Application.Current}"
-                                 Path="ActiveExtensionsCount"/>
-                        <Binding Source="{x:Static Application.Current}"
-                                 Path="ExtensionsCount"/>
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <Separator/>
-            <StatusBarItem HorizontalAlignment="Stretch"
-                           HorizontalContentAlignment="Center">
-                <Hyperlink>
-                    <TextBlock Text="GitHub | ArachisH/Tanji"/>
-                </Hyperlink>
-            </StatusBarItem>
-        </StatusBar>
     </DockPanel>
 </Window>

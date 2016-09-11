@@ -13,10 +13,9 @@
         <local:InjectionViewModel/>
     </UserControl.DataContext>
     <Grid Width="478" Height="318">
-        <TabControl TabStripPlacement="Right"
+        <TabControl Margin="0,0,0,27"
                     Padding="3,3,3,3"
-                    Margin="0,0,0,27"
-                    Style="{StaticResource TJTabControl}">
+                    TabStripPlacement="Right">
             <TabItem Header="Constructer">
                 <constructer:ConstructerView/>
             </TabItem>
@@ -34,7 +33,9 @@
                    Margin="0,291,0,20"
                    Background="{StaticResource TJPrimaryBrush}"/>
         <ComboBox Height="20"
+                  Padding="0"
                   IsEditable="True"
+                  VerticalContentAlignment="Center"
                   Margin="0,298,220,0"/>
         <Button Content="Send To Client"
                 Height="20"

@@ -5,11 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tanji.Windows.Logger"
         mc:Ignorable="d"
-        Title="LoggerView" Height="300" Width="300">
-    <Window.DataContext>
-        <local:LoggerViewModel/>
-    </Window.DataContext>
+        ResizeMode="CanResize"
+        Width="710" Height="521"
+        Title="Tanji - Packet Logger"
+        Icon="/Resources/Tanji_256.ico"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-
+        <RichTextBox x:Name="LoggerTxt"
+                     Foreground="White"
+                     BorderThickness="0"
+                     Background="#0A0A0A"
+                     FontFamily="Segoe UI"
+                     VerticalScrollBarVisibility="Visible"
+                     HorizontalScrollBarVisibility="Disabled">
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </RichTextBox.Resources>
+        </RichTextBox>
     </Grid>
 </Window>

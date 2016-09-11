@@ -20,7 +20,7 @@
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyVersionSettings>None.IncrementOnDemandWithReset.Increment.None</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.IncrementOnDemandWithReset.Increment.None</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.4.582.0</AssemblyVersion>
+    <AssemblyVersion>1.4.1276.0</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,6 +43,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\Tanji_256.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -67,21 +70,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\LabelBox.cs" />
+    <Compile Include="Helpers\AsyncCommand.cs" />
+    <Compile Include="Helpers\Converters\BooleanOrConverter.cs" />
+    <Compile Include="Helpers\Converters\HotelEndPointConverter.cs" />
     <Compile Include="Helpers\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Helpers\Converters\PercentageConverter.cs" />
     <Compile Include="Helpers\MultiConverter.cs" />
-    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\Command.cs" />
     <Compile Include="Helpers\SingleConverter.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Services\Connection\ConnectionView.xaml.cs">
       <DependentUpon>ConnectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\Connection\ConnectionViewModel.cs" />
-    <Compile Include="Services\Connection\Constants.cs" />
     <Compile Include="Services\Extensions\ExtensionsView.xaml.cs">
       <DependentUpon>ExtensionsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\Extensions\ExtensionsViewModel.cs" />
+    <Compile Include="Services\IHaltable.cs" />
     <Compile Include="Services\Injection\Constructer\ConstructerView.xaml.cs">
       <DependentUpon>ConstructerView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +108,7 @@
       <DependentUpon>SchedulerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\Injection\Scheduler\SchedulerViewModel.cs" />
+    <Compile Include="Services\IReceiver.cs" />
     <Compile Include="Services\Options\OptionsView.xaml.cs">
       <DependentUpon>OptionsView.xaml</DependentUpon>
     </Compile>
@@ -114,6 +121,7 @@
       <DependentUpon>LoggerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Logger\LoggerViewModel.cs" />
+    <Compile Include="Windows\Logger\MessageEntry.cs" />
     <Compile Include="Windows\Main\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -186,6 +194,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -210,6 +219,10 @@
     <ProjectReference Include="..\..\Sulakore\Sulakore\Sulakore.csproj">
       <Project>{15e841ec-2411-4f1b-a3ee-07e86cdb32c7}</Project>
       <Name>Sulakore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tangine\Tangine.csproj">
+      <Project>{F3199201-061D-4DF2-A00E-61BA3B754E3E}</Project>
+      <Name>Tangine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
